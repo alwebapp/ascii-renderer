@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>three.js - ASCII Effect</title>
+		<title>L</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Inconsolata" rel="stylesheet">
 		<style>
-			:root {
-				--ascii-bg-color: #000;
-			}
-			html { height: 100%; }
-			body {
-				background-color: var(--ascii-bg-color);
-				margin: 0px;
-				overflow: hidden;
-				height: 100%;
-			}
-			.container {
-				height: calc(100% - 200px);
-				width: 100%;
-				position: fixed;
-				bottom: 20px;
-			}
-			.title {
-				text-align: center;
-				width: 100%;
-				position: fixed;
-				margin: auto 0;
-  				background: #0004;
-				font-family: 'Inconsolata', monospace;
-				color: white;
-			}
-			h1 {
-				font-size: 2.5rem;
-				margin-bottom: 1rem;
-			}
-			a {
-				color: inherit;
-			}
-			a:hover {
-				font-weight: bold;
-			}
-		</style>
+	:root {
+		--ascii-bg-color: #000;
+	}
+	html { height: 100%; }
+	body {
+		background-color: var(--ascii-bg-color);
+		margin: 0px;
+		overflow: hidden;
+		height: 100%;
+	}
+			
+	.container {
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		max-width: 100vw;
+		overflow: hidden;
+	}
+			
+	a {
+		color: inherit;
+	}
+	a:hover {
+		font-weight: bold;
+	}
+	
+	 @media only screen and (max-width: 700px) and (orientation: portrait) {
+    .container {
+      height:calc(100% - 300px);
+      position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+    }
+  }
+</style>
 	</head>
 	<body>
 		<div class="container"></div>
-		<div class="title">
-			<h1>ASCII Renderer</h1>
-			<p>Simulates an ASCII art style using a <a href="https://threejs.org/">three.js</a> renderer and an SVG mask</p>
-			<p><a href="https://github.com/DeoVolenteGames/ascii-renderer">repo</a></p>
-		</div>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/96/three.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r16/Stats.min.js"></script>
 		<script src="vendor/orbitControls.js"></script>
 		<script src="ascii-renderer.js"></script>
-		<script>
+       	<script>
 			var container, stats, canvas;
 
 			var camera, controls, scene, renderer;
@@ -140,7 +135,9 @@
 
 				controls = new THREE.OrbitControls(camera, container);
 				controls.enablePan = false;
-				controls.enableZoom = false;
+				controls.enableZoom = true;
+				controls.zoomSpeed = 0.03;
+				//control.maxZoom = 1000;
 				controls.minAzimuthAngle = -Math.PI/4;
 				controls.maxAzimuthAngle = Math.PI*3/4;
 				controls.enableDamping = true;
@@ -149,8 +146,8 @@
 				controls.update();
 
 				stats = new Stats();
-				stats.showPanel(0);
-				document.body.appendChild(stats.domElement);
+				//stats.showPanel(0);
+				//document.body.appendChild(stats.domElement);
 
 				window.addEventListener('resize', onWindowResize, false);
 				onWindowResize();
